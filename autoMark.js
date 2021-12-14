@@ -27,10 +27,10 @@ formparts.forEach(function (formpart) {
     checkMaxPointOption(options);
   });
   //process for comment
-  let multilineInputFormParts = formpart.querySelectorAll(".rc-MultiLineInputFormPart");
-  multilineInputFormParts.forEach(function (multilineInputFormPart){
-    multilineInputFormPart.querySelector("textarea").value = "Good";
-  });
+  // let multilineInputFormParts = formpart.querySelectorAll(".rc-MultiLineInputFormPart");
+  // multilineInputFormParts.forEach(function (multilineInputFormPart){
+  //   multilineInputFormPart.querySelector("textarea").value = "Good";
+  // });
 });
-let submit = document.querySelector(".rc-FormSubmit button");
-submit.click();
+// let submit = document.querySelector(".rc-FormSubmit button");
+// submit.click();
