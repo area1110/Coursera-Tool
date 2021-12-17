@@ -1,13 +1,38 @@
-// Initialize butotn with users's prefered color
 let autoMark = document.getElementById("auto-mark");
 
+// Initialize marking function
 chrome.storage.sync.get("isChoosingMax", ({ isChoosingMax }) => {
   if (isChoosingMax) {
-    autoMark.innerHTML += "Highest Point";
+    document.querySelector("#markingType").checked = true;
+    autoMark.innerHTML = "Highest Point";
   } else {
-    autoMark.innerHTML += "Lowest Point";
+    document.querySelector("#markingType").checked = false;
+    autoMark.innerHTML = "Lowest Point";
   }
 });
+
+let pointSelect = document.querySelector(".switch");
+pointSelect.addEventListener("click", checkSelect);
+function checkSelect() {
+  let pointType = document.querySelector("#markingType").checked;
+  if (pointType) {
+    let isChoosingMax = true;
+    chrome.storage.sync.set({ isChoosingMax });
+    autoMark.innerHTML = "Highest Point";
+  } else if (!pointType) {
+    let isChoosingMax = false;
+    chrome.storage.sync.set({ isChoosingMax });
+    autoMark.innerHTML = "Lowest Point";
+  }
+}
+
+// chrome.storage.sync.get("isChoosingMax", ({ isChoosingMax }) => {
+//   if (isChoosingMax) {
+//     autoMark.innerHTML += "Highest Point";
+//   } else {
+//     autoMark.innerHTML += "Lowest Point";
+//   }
+// });
 
 autoMark.addEventListener("click", async () => {
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
@@ -78,9 +103,20 @@ chrome.tabs.query({ active: true }, function (tabs) {
   chrome.scripting.executeScript(
     {
       target: { tabId: tab.id },
-      func: ()=>{return document.querySelector('.rc-CommentTextArea__input-container label').id}
+      func: () => {
+        return document.querySelector(
+          ".rc-CommentTextArea__input-container label"
+        ).id;
+      },
     },
-    (injectionResults) => {getReviewableLink(injectionResults[0].result)}
+    (injectionResults) => {
+      if (!injectionResults || injectionResults[0].result == null) {
+        document.querySelector("#review").innerHTML =
+          "<p>Can not find reviewable link, Please go to <b>My submission</b> tab in Coursera</p>";
+      } else {
+        getReviewableLink(injectionResults[0].result);
+      }
+    }
   );
 });
 

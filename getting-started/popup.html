@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="button.css">
+    <link rel="stylesheet" href="popup.css" />
   </head>
   <body>
-    <button id="auto-mark">Auto Mark: </button>
-
-    <input id="reviewUrl" type="text"/>
+    <div id="mark-feature">
+      <div class="mark-option">
+        <label>Low</label>
+        <label class="switch">
+          <input id="markingType" type="checkbox" />
+          <span class="slider round"></span>
+        </label>
+        <label>High</label>
+      </div>
+      <button id="auto-mark"></button>
+    </div>
+    <div id="review">
+      <input id="reviewUrl" type="text" readonly />
+    </div>
     <script src="popup.js"></script>
   </body>
 </html>
