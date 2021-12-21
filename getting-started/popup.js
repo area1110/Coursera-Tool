@@ -11,37 +11,55 @@ chrome.storage.sync.get("isChoosingMax", ({ isChoosingMax }) => {
   }
 });
 
-let pointSelect = document.querySelector(".switch");
-pointSelect.addEventListener("click", checkSelect);
+chrome.storage.sync.get("isAutomatic", ({ isAutomatic }) => {
+  if (isAutomatic) {
+    document.querySelector("#automatic-switch").checked = true;
+    autoMark.style.display = "none";
+    addingScriptMarking();
+  } else {
+    document.querySelector("#automatic-switch").checked = false;
+    autoMark.style.display = "block";
+  }
+});
+
+pointSelects[1].addEventListener("click", checkSelect);
 function checkSelect() {
-  let pointType = document.querySelector("#markingType").checked;
+  let pointType = pointSelects[1].querySelector("#automatic-switch").checked;
+  if (pointType) {
+    let isAutomatic = true;
+    chrome.storage.sync.set({ isAutomatic });
+    autoMark.style.display = "none";
+  } else {
+    let isAutomatic = false;
+    chrome.storage.sync.set({ isAutomatic });
+    autoMark.style.display = "block";
+  }
+}
+
+let pointSelects = document.querySelectorAll(".switch");
+pointSelects[0].addEventListener("click", checkSelect);
+function checkSelect() {
+  let pointType = pointSelects[0].querySelector("#markingType").checked;
   if (pointType) {
     let isChoosingMax = true;
     chrome.storage.sync.set({ isChoosingMax });
     autoMark.innerHTML = "Highest Point";
-  } else if (!pointType) {
+  } else {
     let isChoosingMax = false;
     chrome.storage.sync.set({ isChoosingMax });
     autoMark.innerHTML = "Lowest Point";
   }
 }
 
-// chrome.storage.sync.get("isChoosingMax", ({ isChoosingMax }) => {
-//   if (isChoosingMax) {
-//     autoMark.innerHTML += "Highest Point";
-//   } else {
-//     autoMark.innerHTML += "Lowest Point";
-//   }
-// });
+autoMark.addEventListener("click", addingScriptMarking);
 
-autoMark.addEventListener("click", async () => {
+async function addingScriptMarking() {
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   chrome.scripting.executeScript({
     target: { tabId: tab.id },
     function: markingPoints,
   });
-});
-
+}
 // The body of this function will be execuetd as a content script inside the
 // current page
 function markingPoints() {
@@ -59,14 +77,8 @@ function markingPoints() {
         }
       });
     });
-    //process for comment
-    // let multilineInputFormParts = formpart.querySelectorAll(".rc-MultiLineInputFormPart");
-    // multilineInputFormParts.forEach(function (multilineInputFormPart){
-    //   multilineInputFormPart.querySelector("textarea").value = "Good";
-    // });
   });
-  // let submit = document.querySelector(".rc-FormSubmit button");
-  // submit.click();
+
   function getPointNumber(option) {
     let optionContent = option.querySelector(".option-contents");
     let viewPoint = optionContent.firstChild.firstChild.innerHTML;
