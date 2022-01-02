@@ -4,7 +4,7 @@ html {
   min-width: 300px;
 }
 
-.title-name{
+.title-name {
   margin-top: 5px;
   font-size: 20px;
   font-weight: bold;
@@ -23,7 +23,7 @@ button {
   margin: 10px;
   border: none;
   border-radius: 2px;
-  background-color: #6998AB;
+  background-color: #6998ab;
   color: #fff;
   font-size: large;
   font-weight: 700;
@@ -46,15 +46,23 @@ button.current {
 .mark-option {
   text-align: left;
   margin-bottom: 10px;
-}
-
-#mark-feature{
   margin-left: auto;
   margin-right: auto;
-  text-align: center;
+}
+
+#mark-feature {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   border-bottom: 1px solid #ccc;
   margin-bottom: 10px;
   padding-bottom: 20px;
+}
+
+#auto-mark {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .switch {
@@ -62,6 +70,10 @@ button.current {
   display: inline-block;
   width: 45px;
   height: 20px;
+}
+
+.switch-title {
+  padding-right: 20px;
 }
 
 .switch input {
@@ -118,7 +130,7 @@ input:checked + .slider:before {
 }
 
 #review {
-  background-color: #B1D0E0;
+  background-color: #b1d0e0;
   padding: 0 10px;
 }
 
@@ -144,7 +156,7 @@ input:checked + .slider:before {
   padding: 5px;
   position: absolute;
   z-index: 1;
-  bottom: 150%;
+  bottom: 100%;
   left: 50%;
   margin-left: -75px;
   opacity: 0;

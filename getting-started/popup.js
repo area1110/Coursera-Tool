@@ -1,3 +1,6 @@
+'use strict';
+
+
 let autoMark = document.getElementById("auto-mark");
 
 // Initialize marking function
@@ -22,23 +25,9 @@ chrome.storage.sync.get("isAutomatic", ({ isAutomatic }) => {
   }
 });
 
-pointSelects[1].addEventListener("click", checkSelect);
-function checkSelect() {
-  let pointType = pointSelects[1].querySelector("#automatic-switch").checked;
-  if (pointType) {
-    let isAutomatic = true;
-    chrome.storage.sync.set({ isAutomatic });
-    autoMark.style.display = "none";
-  } else {
-    let isAutomatic = false;
-    chrome.storage.sync.set({ isAutomatic });
-    autoMark.style.display = "block";
-  }
-}
-
 let pointSelects = document.querySelectorAll(".switch");
-pointSelects[0].addEventListener("click", checkSelect);
-function checkSelect() {
+pointSelects[0].addEventListener("click", checkSelectMarkingType);
+function checkSelectMarkingType() {
   let pointType = pointSelects[0].querySelector("#markingType").checked;
   if (pointType) {
     let isChoosingMax = true;
@@ -48,6 +37,20 @@ function checkSelect() {
     let isChoosingMax = false;
     chrome.storage.sync.set({ isChoosingMax });
     autoMark.innerHTML = "Lowest Point";
+  }
+}
+
+pointSelects[1].addEventListener("click", checkSelectAutoMarking);
+function checkSelectAutoMarking() {
+  let pointType = pointSelects[1].querySelector("#automatic-switch").checked;
+  if (pointType) {
+    let isAutomatic = true;
+    chrome.storage.sync.set({ isAutomatic });
+    autoMark.style.display = "none";
+  } else {
+    let isAutomatic = false;
+    chrome.storage.sync.set({ isAutomatic });
+    autoMark.style.display = "block";
   }
 }
 
@@ -77,11 +80,18 @@ function markingPoints() {
         }
       });
     });
+    //process for comment
+    let multilineInputFormParts = formpart.querySelectorAll(
+      ".rc-MultiLineInputFormPart"
+    );
+    multilineInputFormParts.forEach(function (multilineInputFormPart) {
+      multilineInputFormPart.querySelector("textarea").focus();
+      document.execCommand("insertText", false, "Good ");
+    });
   });
-
   function getPointNumber(option) {
     let optionContent = option.querySelector(".option-contents");
-    let viewPoint = optionContent.firstChild.firstChild.innerHTML;
+    let viewPoint = optionContent.getElementsByTagName('span')[0].innerHTML;
     return viewPoint.split(" ")[0];
   }
 
@@ -89,7 +99,7 @@ function markingPoints() {
     let maxOption = options[0];
     let maxPoint = getPointNumber(options[0]);
     for (var i = 0; i < options.length; i++) {
-      if (getPointNumber(options[i]) > maxPoint) {
+      if (getPointNumber(options[i]) > parseInt(maxPoint, 10)) {
         maxPoint = getPointNumber(options[i]);
         maxOption = options[i];
       }
@@ -101,7 +111,7 @@ function markingPoints() {
     let minOption = options[0];
     let minPoint = getPointNumber(options[0]);
     for (var i = 0; i < options.length; i++) {
-      if (getPointNumber(options[i]) < minPoint) {
+      if (getPointNumber(options[i]) < parseInt(minPoint, 10)) {
         minPoint = getPointNumber(options[i]);
         minOption = options[i];
       }

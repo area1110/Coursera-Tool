@@ -8,26 +8,34 @@
       <h1 class="title-name">Coursera Tool+</h1>
     </div>
     <div id="mark-feature">
-      <div class="mark-option">
-        <label class="switch">
-          <input id="markingType" type="checkbox" />
-          <span class="slider round"></span>
-        </label>
-        <label>Highest Point</label>
-      </div>
-      <div class="mark-option">
-        <label class="switch">
-          <input id="automatic-switch" type="checkbox" />
-          <span class="slider round"></span>
-        </label>
-        <label>Auto</label>
-      </div>
+      <table class="mark-option">
+        <tr>
+          <td class="switch-title"><label for="markingType">Highest Point</label></td>
+          <td class="switch">
+            <label>
+              <input id="markingType" type="checkbox" />
+              <span class="slider round"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td class="switch-title"><label for="automatic-switch">Auto</label></td>
+          <td class="switch">
+            <label>
+              <input id="automatic-switch" type="checkbox" />
+              <span class="slider round"></span>
+            </label>
+          </td>
+        </tr>
+      </table>
       <button id="auto-mark"></button>
     </div>
     <div id="review" class="tooltip">
+      <label class="title-function">Review Link:</label>
       <span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
       <input id="reviewUrl" type="text" readonly />
     </div>
     <script src="popup.js"></script>
+    <script src="hiraganaRandom.js"></script>
   </body>
 </html>
