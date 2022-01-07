@@ -26,14 +26,15 @@
               <span class="slider round"></span>
             </label>
           </td>
-        </tr>
+        </tr>      
       </table>
-      <button id="auto-mark"></button>
+      <input title="Leave it blank to disable autoFill" class="markaction textsquare" type="text" id="comment-content" placeholder="Fill the comment textbox"/>  
+      <button class="markaction" id="auto-mark"></button>
     </div>
     <div id="review" class="tooltip">
       <label class="title-function">Review Link:</label>
       <span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
-      <input id="reviewUrl" type="text" readonly />
+      <input class="textsquare" id="reviewUrl" type="text" readonly />
     </div>
     <script src="popup.js"></script>
     <script src="hiraganaRandom.js"></script>

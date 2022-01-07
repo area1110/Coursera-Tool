@@ -59,7 +59,7 @@ button.current {
   padding-bottom: 20px;
 }
 
-#auto-mark {
+.markaction {
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -134,10 +134,11 @@ input:checked + .slider:before {
   padding: 0 10px;
 }
 
-#reviewUrl {
+.textsquare {
   padding: 5px;
-  margin: 10px;
   font-size: large;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 /* .tooltip-popup-copy */
