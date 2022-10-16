@@ -28,8 +28,9 @@
 
   chrome.storage.sync.get("commentContent", ({ commentContent }) => {
     commentContentBox.value = commentContent;
-    if(!commentContent){
-      commentContentBox.title = "AutoFill: Fill the comment textbox on peer review page."
+    if (!commentContent) {
+      commentContentBox.title =
+        "AutoFill: Fill the comment textbox on peer review page.";
     }
   });
 
@@ -90,7 +91,6 @@
   }
 
   document.getElementById("reviewUrl").addEventListener("click", copyText);
-  
 })();
 
 async function addingScriptMarking() {
@@ -104,9 +104,12 @@ async function addingScriptMarking() {
 // current page
 function markingPoints() {
   let formparts = document.querySelectorAll(".rc-FormParts");
+  let formsubmit = document.querySelectorAll(".rc-FormSubmit");
   formparts.forEach(function (formpart) {
     //process for mark
-    let optionFormparts = formpart.querySelectorAll(".rc-OptionsFormPart");
+    let optionFormparts = formpart.querySelectorAll(
+      ".rc-OptionsFormPart, .rc-YesNoFormPart"
+    );
     optionFormparts.forEach(function (optionFormpart) {
       let options = optionFormpart.querySelectorAll(".option");
       chrome.storage.sync.get("isChoosingMax", ({ isChoosingMax }) => {
@@ -134,6 +137,12 @@ function markingPoints() {
       }
     });
   });
+  //process go to submit button
+  let buttonSubmit = formsubmit[0].querySelector(
+    'button[type="button"]'
+  );
+  buttonSubmit.click();
+
   function getPointNumber(option) {
     let optionContent = option.querySelector(".option-contents");
     let viewPoint = optionContent.getElementsByTagName("span")[0].innerHTML;
@@ -201,11 +210,9 @@ function copyText() {
   copyText.select();
   copyText.setSelectionRange(0, 99999); /* For mobile devices */
 
-   /* Copy the text inside the text field */
+  /* Copy the text inside the text field */
   navigator.clipboard.writeText(copyText.value);
 
   var tooltip = document.getElementById("myTooltip");
   tooltip.innerHTML = "Copied to clipboard";
 }
-
-
