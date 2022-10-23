@@ -104,7 +104,7 @@ async function addingScriptMarking() {
 // current page
 function markingPoints() {
   let formparts = document.querySelectorAll(".rc-FormParts");
-  let formsubmit = document.querySelectorAll(".rc-FormSubmit");
+
   formparts.forEach(function (formpart) {
     //process for mark
     let optionFormparts = formpart.querySelectorAll(
@@ -137,11 +137,8 @@ function markingPoints() {
       }
     });
   });
-  //process go to submit button
-  let buttonSubmit = formsubmit[0].querySelector(
-    'button[type="button"]'
-  );
-  buttonSubmit.click();
+
+  scrollToSubmit();
 
   function getPointNumber(option) {
     let optionContent = option.querySelector(".option-contents");
@@ -172,7 +169,19 @@ function markingPoints() {
     }
     minOption.querySelector(".option-input").click();
   }
+
+  function scrollToSubmit() {
+    let formsubmit = document.querySelectorAll(".rc-FormSubmit");
+    let buttonSubmit = formsubmit[0].querySelector('button[type="button"]');
+    buttonSubmit.scrollIntoView(false);
+    var blink_speed = 1000; // every 1000 == 1 second, adjust to suit
+    var t = setInterval(function () {
+      buttonSubmit.style.backgroundColor =
+        buttonSubmit.style.backgroundColor == "rgb(31, 131, 84)" ? "#2073d4" : "rgb(31, 131, 84)";
+    }, blink_speed);
+  }
 }
+
 function getReviewableLink(rawReviewidComment) {
   var displayUrl = document.getElementById("reviewUrl");
   chrome.tabs.query({ active: true }, (tabs) => {
