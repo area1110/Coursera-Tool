@@ -126,7 +126,8 @@ function markingPoints() {
         commentContent !== "" ||
         commentContent !== null ||
         commentContent !== undefined
-      ) {
+      )
+      {
         let multilineInputFormParts = formpart.querySelectorAll(
           ".rc-MultiLineInputFormPart"
         );
