@@ -1,7 +1,7 @@
 {
   "name": "Coursera Tool+",
-  "description": "Tools for learners of Coursera!",
-  "version": "1.2",
+  "description": "Tools for learners of Coursera! You can get reviewable URL or auto marking for peer review submission",
+  "version": "1.4",
   "manifest_version": 3,
   "background": {
     "service_worker": "background.js"
